@@ -1,0 +1,12 @@
+name: Deploy to production
+
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update new content
+        run: |  
+          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/Saebasol/blog/actions/workflows/deploy.yml/dispatches --data '{"ref": "master"}'
